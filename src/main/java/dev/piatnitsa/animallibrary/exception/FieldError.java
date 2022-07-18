@@ -9,6 +9,10 @@ public class FieldError {
         this.errorValue = errorValue;
     }
 
+    public FieldError(String messageCode) {
+        this.messageCode = messageCode;
+    }
+
     public String getMessageCode() {
         return messageCode;
     }
