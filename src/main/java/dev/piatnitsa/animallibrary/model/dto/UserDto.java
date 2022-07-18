@@ -2,25 +2,14 @@ package dev.piatnitsa.animallibrary.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-
 public class UserDto {
 
-    @Min(0) private long id;
-    @NotBlank private String email;
-    @NotBlank private String name;
+    private String email;
+    private String name;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    private String token;
 
     public String getEmail() {
         return email;
@@ -44,5 +33,13 @@ public class UserDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

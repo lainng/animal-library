@@ -2,9 +2,7 @@ package dev.piatnitsa.animallibrary.util;
 
 import dev.piatnitsa.animallibrary.model.User;
 import dev.piatnitsa.animallibrary.model.dto.UserDto;
-import org.springframework.stereotype.Component;
 
-@Component
 public class UserDtoConverter {
 
     public static UserDto toDto(User user) {
