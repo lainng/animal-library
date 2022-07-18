@@ -1,7 +1,10 @@
 package dev.piatnitsa.animallibrary.exception;
 
 public class NoSuchEntityException extends RuntimeException {
-    public NoSuchEntityException() {
+    private FieldError fieldError;
+
+    public NoSuchEntityException(FieldError fieldError) {
+        this.fieldError = fieldError;
     }
 
     public NoSuchEntityException(String message) {
@@ -14,5 +17,9 @@ public class NoSuchEntityException extends RuntimeException {
 
     public NoSuchEntityException(Throwable cause) {
         super(cause);
+    }
+
+    public FieldError getError() {
+        return fieldError;
     }
 }
