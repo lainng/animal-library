@@ -19,6 +19,12 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     }
 
     @Override
+    public User insert(User newEntity) {
+        UserValidator.validate(newEntity);
+        return userRepository.save(newEntity);
+    }
+
+    @Override
     public User update(long id, User newDataEntity) {
         throw new UnsupportedOperationException();
     }
