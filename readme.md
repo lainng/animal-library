@@ -29,7 +29,7 @@ An authorized user must be able to:
   - ID (from the reference list)
   - date of birth
   - gender
-  - personal (unique)
+  - nickname (unique)
 - get a list of your animals.
 - get details of any animal by id. 
 
