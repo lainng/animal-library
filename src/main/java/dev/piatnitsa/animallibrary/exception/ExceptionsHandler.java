@@ -26,9 +26,10 @@ public class ExceptionsHandler {
         ex.getErrors().forEach(fieldError -> {
             String message = messageSource.getMessage(
                     fieldError.getMessageCode(),
-                    new Object[]{fieldError.getErrorValue()},
+                    null,
                     Locale.getDefault()
             );
+            message = String.format(message, fieldError.getErrorValue());
             details.append(message).append(" ");
         });
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.toString(), details.toString());
@@ -41,11 +42,24 @@ public class ExceptionsHandler {
         FieldError error = ex.getError();
         String details = messageSource.getMessage(
                 error.getMessageCode(),
-                new Object[]{error.getErrorValue()},
+                null,
+                Locale.getDefault()
+        );
+        details = String.format(details, error.getErrorValue());
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.toString(), details);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    @ExceptionHandler(EntityExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponse> handleEntityExistsException(EntityExistsException ex) {
+        String details = messageSource.getMessage(
+                ex.getMessage(),
+                null,
                 Locale.getDefault()
         );
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.toString(), details);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        return ResponseEntity.badRequest().body(errorResponse);
     }
 
 }
