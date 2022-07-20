@@ -2,24 +2,28 @@ package dev.piatnitsa.animallibrary.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
+@Table(name = "animal")
 public class Animal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String nickname;
+
+    @Column(name = "birthday")
     private LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -45,5 +49,20 @@ public class Animal {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animal animal = (Animal) o;
+        return id == animal.id && Objects.equals(nickname, animal.nickname)
+                && Objects.equals(dateOfBirth, animal.dateOfBirth)
+                && gender == animal.gender;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nickname, dateOfBirth, gender);
     }
 }
