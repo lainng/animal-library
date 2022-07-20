@@ -1,13 +1,13 @@
 package dev.piatnitsa.animallibrary.controller;
 
 import dev.piatnitsa.animallibrary.model.User;
+import dev.piatnitsa.animallibrary.model.dto.UserCredentialsDto;
 import dev.piatnitsa.animallibrary.model.dto.UserDto;
 import dev.piatnitsa.animallibrary.security.jwt.TokenProvider;
 import dev.piatnitsa.animallibrary.service.UserService;
 import dev.piatnitsa.animallibrary.util.UserDtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -29,24 +29,24 @@ public class UserController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.OK)
-    public UserDto registerUser(@RequestBody UserDto userCredentials) {
+    public UserCredentialsDto registerUser(@RequestBody UserDto userCredentials) {
         User registeredUser = userService.insert(UserDtoConverter.toEntity(userCredentials));
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userCredentials.getEmail(), userCredentials.getPassword())
         );
-        UserDto registeredDto = UserDtoConverter.toDto(registeredUser);
+        UserCredentialsDto registeredDto = UserDtoConverter.toCredentialsDto(registeredUser);
         registeredDto.setToken(tokenProvider.generateToken(userCredentials.getEmail()));
         return registeredDto;
     }
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> login(@RequestBody UserDto userCredentials) {
+    public UserCredentialsDto login(@RequestBody UserCredentialsDto userCredentials) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userCredentials.getEmail(), userCredentials.getPassword())
-        );
+                new UsernamePasswordAuthenticationToken(userCredentials.getEmail(), userCredentials.getPassword()));
         String token = tokenProvider.generateToken(userCredentials.getEmail());
-        return ResponseEntity.ok(token);
+        userCredentials.setToken(token);
+        return userCredentials;
     }
 
     @GetMapping("/name-availability")
