@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                     .antMatchers("/register", "/login", "/name-availability").permitAll()
-                    .antMatchers("/animal/*").authenticated()
+                    .antMatchers("/animal/**").authenticated()
                 .and()
                 .exceptionHandling()
                     .accessDeniedHandler(forbiddenHandler)
