@@ -1,6 +1,7 @@
 package dev.piatnitsa.animallibrary.util;
 
 import dev.piatnitsa.animallibrary.model.User;
+import dev.piatnitsa.animallibrary.model.dto.UserCredentialsDto;
 import dev.piatnitsa.animallibrary.model.dto.UserDto;
 
 public class UserDtoConverter {
@@ -9,6 +10,12 @@ public class UserDtoConverter {
         UserDto dto = new UserDto();
         dto.setEmail(user.getEmail());
         dto.setName(user.getName());
+        return dto;
+    }
+
+    public static UserCredentialsDto toCredentialsDto(User user) {
+        UserCredentialsDto dto = new UserCredentialsDto();
+        dto.setEmail(user.getEmail());
         return dto;
     }
 

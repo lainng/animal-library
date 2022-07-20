@@ -2,13 +2,12 @@ package dev.piatnitsa.animallibrary.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UserDto {
-
+public class UserCredentialsDto {
     private String email;
-    private String name;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    private String token;
 
     public String getEmail() {
         return email;
@@ -26,11 +25,11 @@ public class UserDto {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getToken() {
+        return token;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setToken(String token) {
+        this.token = token;
     }
 }
