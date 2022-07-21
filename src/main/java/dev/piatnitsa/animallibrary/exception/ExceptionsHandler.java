@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -24,12 +25,7 @@ public class ExceptionsHandler {
     public ResponseEntity<ErrorResponse> handleIncorrectParameterException(IncorrectParameterException ex) {
         StringBuilder details = new StringBuilder();
         ex.getErrors().forEach(fieldError -> {
-            String message = messageSource.getMessage(
-                    fieldError.getMessageCode(),
-                    null,
-                    Locale.getDefault()
-            );
-            message = String.format(message, fieldError.getErrorValue());
+            String message = formatExceptionMessage(fieldError);
             details.append(message).append(" ");
         });
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.toString(), details.toString());
@@ -39,13 +35,7 @@ public class ExceptionsHandler {
     @ExceptionHandler(NoSuchEntityException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorResponse> handleNoSuchEntityException(NoSuchEntityException ex) {
-        FieldError error = ex.getError();
-        String details = messageSource.getMessage(
-                error.getMessageCode(),
-                null,
-                Locale.getDefault()
-        );
-        details = String.format(details, error.getErrorValue());
+        String details = formatExceptionMessage(ex.getError());
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.toString(), details);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
@@ -53,13 +43,28 @@ public class ExceptionsHandler {
     @ExceptionHandler(EntityExistsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorResponse> handleEntityExistsException(EntityExistsException ex) {
-        String details = messageSource.getMessage(
-                ex.getMessage(),
-                null,
-                Locale.getDefault()
-        );
+        String details = formatExceptionMessage(ex.getError());
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.toString(), details);
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        String details = messageSource.getMessage(
+                "exception.msgNoReadable",
+                null,
+                Locale.getDefault());
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.toString(), details);
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+    private String formatExceptionMessage(FieldError fieldError) {
+        String details = messageSource.getMessage(
+                fieldError.getMessageCode(),
+                null,
+                Locale.getDefault()
+        );
+        return String.format(details, fieldError.getErrorValue());
+    }
 }
