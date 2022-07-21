@@ -2,6 +2,7 @@ package dev.piatnitsa.animallibrary.service.impl;
 
 import dev.piatnitsa.animallibrary.exception.EntityExistsException;
 import dev.piatnitsa.animallibrary.exception.ExceptionMessageCode;
+import dev.piatnitsa.animallibrary.exception.FieldError;
 import dev.piatnitsa.animallibrary.model.Animal;
 import dev.piatnitsa.animallibrary.repository.AnimalRepository;
 import dev.piatnitsa.animallibrary.service.AbstractService;
@@ -39,7 +40,10 @@ public class AnimalServiceImpl
         if (newDataEntity.getNickname() != null) {
             Optional<Animal> optionalAnimal = repository.findByNickname(newDataEntity.getNickname());
             if (optionalAnimal.isPresent()) {
-                throw new EntityExistsException(ExceptionMessageCode.ANIMAL_ALREADY_EXISTS);
+                throw new EntityExistsException(
+                        new FieldError(ExceptionMessageCode.ANIMAL_ALREADY_EXISTS,
+                                optionalAnimal.get().getNickname())
+                );
             }
         }
         AnimalDataUpdater.updateData(currentAnimal, newDataEntity);
