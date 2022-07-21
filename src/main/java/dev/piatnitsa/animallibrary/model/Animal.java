@@ -65,4 +65,15 @@ public class Animal {
     public int hashCode() {
         return Objects.hash(id, nickname, dateOfBirth, gender);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Animal{");
+        sb.append("id=").append(id);
+        sb.append(", nickname='").append(nickname).append('\'');
+        sb.append(", dateOfBirth=").append(dateOfBirth);
+        sb.append(", gender=").append(gender);
+        sb.append('}');
+        return sb.toString();
+    }
 }
