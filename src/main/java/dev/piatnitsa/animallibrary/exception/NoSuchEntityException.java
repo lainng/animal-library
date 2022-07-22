@@ -3,6 +3,9 @@ package dev.piatnitsa.animallibrary.exception;
 public class NoSuchEntityException extends RuntimeException {
     private FieldError fieldError;
 
+    public NoSuchEntityException() {
+    }
+
     public NoSuchEntityException(FieldError fieldError) {
         this.fieldError = fieldError;
     }
