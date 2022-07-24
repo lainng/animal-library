@@ -26,7 +26,7 @@ Write a set of services for a SOA WEB application. The application must implemen
 
 An authorized user must be able to:
 - create / edit / delete animals:
-  - ID (from the reference list)
+  - ID
   - date of birth (ISO 8601)
   - gender
   - nickname (unique)
