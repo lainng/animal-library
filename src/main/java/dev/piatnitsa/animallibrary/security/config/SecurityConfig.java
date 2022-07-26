@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -21,14 +23,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final TokenFilter tokenFilter;
     private final ForbiddenHandler forbiddenHandler;
     private final UnauthorizedEntryPoint unauthorizedEntryPoint;
+    private final AuthenticationFailureHandler failureHandler;
+    private final AuthenticationSuccessHandler successHandler;
 
     @Autowired
     public SecurityConfig(TokenFilter tokenFilter,
                           ForbiddenHandler forbiddenHandler,
-                          UnauthorizedEntryPoint unauthorizedEntryPoint) {
+                          UnauthorizedEntryPoint unauthorizedEntryPoint,
+                          AuthenticationFailureHandler failureHandler, AuthenticationSuccessHandler successHandler) {
         this.tokenFilter = tokenFilter;
         this.forbiddenHandler = forbiddenHandler;
         this.unauthorizedEntryPoint = unauthorizedEntryPoint;
+        this.failureHandler = failureHandler;
+        this.successHandler = successHandler;
     }
 
     @Override
@@ -40,6 +47,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/register", "/login", "/name-availability").permitAll()
                     .antMatchers("/animal/**").authenticated()
+                .and()
+                .formLogin()
+                    .loginPage("/login")
+                    .failureHandler(failureHandler)
+                    .successHandler(successHandler)
                 .and()
                 .exceptionHandling()
                     .accessDeniedHandler(forbiddenHandler)
