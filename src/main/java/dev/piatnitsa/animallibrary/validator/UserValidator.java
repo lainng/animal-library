@@ -65,7 +65,7 @@ public class UserValidator {
 
     private static FieldError validatePassword(String password) {
         if (password == null || password.length() < MIN_PASSWORD_LENGTH || password.length() > MAX_PASSWORD_LENGTH) {
-            new FieldError(ExceptionMessageCode.USER_BAD_PASSWORD, password);
+            new FieldError(ExceptionMessageCode.USER_BAD_PASSWORD);
         }
         return null;
     }
