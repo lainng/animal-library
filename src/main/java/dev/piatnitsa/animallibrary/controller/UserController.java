@@ -41,7 +41,7 @@ public class UserController {
 
     @GetMapping("/name-availability")
     @ResponseStatus(HttpStatus.OK)
-    public boolean isNameAvailable(@RequestBody String name) {
+    public boolean isNameAvailable(@RequestParam String name) {
         return userService.isNameAvailable(name);
     }
 }
