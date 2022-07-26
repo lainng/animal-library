@@ -39,16 +39,6 @@ public class UserController {
         return registeredDto;
     }
 
-    @PostMapping("/login")
-    @ResponseStatus(HttpStatus.OK)
-    public UserCredentialsDto login(@RequestBody UserCredentialsDto userCredentials) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userCredentials.getEmail(), userCredentials.getPassword()));
-        String token = tokenProvider.generateToken(userCredentials.getEmail());
-        userCredentials.setToken(token);
-        return userCredentials;
-    }
-
     @GetMapping("/name-availability")
     @ResponseStatus(HttpStatus.OK)
     public boolean isNameAvailable(@RequestBody String name) {
