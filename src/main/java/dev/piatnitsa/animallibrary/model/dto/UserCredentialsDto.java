@@ -9,6 +9,14 @@ public class UserCredentialsDto {
     private String password;
     private String token;
 
+    public UserCredentialsDto() {
+    }
+
+    public UserCredentialsDto(String email, String token) {
+        this.email = email;
+        this.token = token;
+    }
+
     public String getEmail() {
         return email;
     }
