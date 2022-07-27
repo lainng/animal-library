@@ -3,6 +3,11 @@ package dev.piatnitsa.animallibrary.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * This class represents a user entity.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 @Entity
 @Table(name = "user")
 public class User {

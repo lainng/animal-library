@@ -2,6 +2,11 @@ package dev.piatnitsa.animallibrary.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * This class represents DTO that contains the user's credentials.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 public class UserCredentialsDto {
     private String email;
 

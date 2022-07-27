@@ -2,6 +2,11 @@ package dev.piatnitsa.animallibrary.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * This class represents data transfer object of {@link dev.piatnitsa.animallibrary.model.User} entity.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 public class UserDto {
 
     private String email;

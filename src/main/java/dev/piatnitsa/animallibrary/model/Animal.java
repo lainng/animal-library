@@ -4,6 +4,11 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * This class represents an animal entity.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 @Entity
 @Table(name = "animal")
 public class Animal {
