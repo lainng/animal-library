@@ -1,6 +1,7 @@
 package dev.piatnitsa.animallibrary.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.piatnitsa.animallibrary.model.dto.UserCredentialsDto;
 import dev.piatnitsa.animallibrary.security.jwt.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,6 +33,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         ObjectMapper objectMapper = new ObjectMapper();
         UserDetails principal = (UserDetails) authentication.getPrincipal();
         String token = tokenProvider.generateToken(principal.getUsername());
-        response.getWriter().write(objectMapper.writeValueAsString(token));
+        UserCredentialsDto dto = new UserCredentialsDto(principal.getUsername(), token);
+        response.getWriter().write(objectMapper.writeValueAsString(dto));
     }
 }
