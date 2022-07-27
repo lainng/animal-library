@@ -17,6 +17,11 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * This class is configuration for Spring Security Framework. It configures access to the application and configures web filters.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
