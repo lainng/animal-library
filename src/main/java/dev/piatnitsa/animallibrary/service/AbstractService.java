@@ -9,6 +9,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class is implementation of interface {@link CRUDService} and is designed for basic work with objects.
+ * @param <T> type of entity.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 public abstract class AbstractService<T> implements CRUDService<T> {
     private final JpaRepository<T, Long> repository;
 

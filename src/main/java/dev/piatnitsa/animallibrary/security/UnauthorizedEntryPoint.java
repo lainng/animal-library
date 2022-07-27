@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This class represents a handler that rejects unauthorized resource requests. Returns UNAUTHORIZED HTTP status.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 @Component
 public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
     private static final String UTF_8 = "UTF-8";

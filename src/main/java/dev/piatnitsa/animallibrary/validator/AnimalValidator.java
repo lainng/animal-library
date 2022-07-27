@@ -10,10 +10,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class provides a validator for {@link Animal} entity.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 public class AnimalValidator {
     private static final int MIN_NICKNAME_SIZE = 3;
     private static final int MAX_NICKNAME_SIZE = 32;
 
+    /**
+     * Validates an {@link Animal} entity fields.
+     * @param entity entity for validate.
+     */
     public static void validate(Animal entity) {
         nullCheck(entity);
 
@@ -31,6 +40,10 @@ public class AnimalValidator {
         }
     }
 
+    /**
+     * Validates exists fields of an {@link Animal} entity. If some fields do not contain values, validation is not interrupted.
+     * @param entity entity for validate.
+     */
     public static void validateForUpdate(Animal entity) {
         nullCheck(entity);
 

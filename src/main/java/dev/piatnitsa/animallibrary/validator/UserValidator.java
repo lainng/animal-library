@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class provides a validator for {@link User} entity.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 public class UserValidator {
     private static final int MIN_NAME_LENGTH = 2;
     private static final int MAX_NAME_LENGTH = 64;
@@ -16,6 +21,10 @@ public class UserValidator {
     private static final int MAX_PASSWORD_LENGTH = 64;
     private static final String EMAIL_REGEXP = "[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}";
 
+    /**
+     * Validates an {@code User} entity fields.
+     * @param user entity to validate.
+     */
     public static void validate(User user) {
         if (nullCheck(user)) {
             throw new IncorrectParameterException(
@@ -41,6 +50,10 @@ public class UserValidator {
         }
     }
 
+    /**
+     * Validates the name of the user.
+     * @param name name for validate.
+     */
     public static void validateName(String name) {
         if (name == null || name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH) {
             throw new IncorrectParameterException(Collections.singletonList(

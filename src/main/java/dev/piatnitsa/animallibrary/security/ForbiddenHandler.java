@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This class represents the access denied handler. Returns FORBIDDEN HTTP status if the user does not have access rights.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 @Component
 public class ForbiddenHandler implements AccessDeniedHandler {
     private static final String UTF_8 = "UTF-8";
