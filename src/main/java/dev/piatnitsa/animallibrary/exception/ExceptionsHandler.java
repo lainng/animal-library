@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Locale;
 
+/**
+ * This class represents a set of exception handlers.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 @RestControllerAdvice
 public class ExceptionsHandler {
     private final MessageSource messageSource;

@@ -1,5 +1,13 @@
 package dev.piatnitsa.animallibrary.exception;
 
+/**
+ * This class is an entity that contains an exception message code and an invalid field value.
+ * Required for entity validation.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ * @see dev.piatnitsa.animallibrary.validator.AnimalValidator
+ * @see dev.piatnitsa.animallibrary.validator.UserValidator
+ */
 public class FieldError {
     private String messageCode;
     private Object errorValue;

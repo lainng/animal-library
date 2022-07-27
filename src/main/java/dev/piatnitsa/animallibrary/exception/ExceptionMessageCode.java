@@ -1,5 +1,10 @@
 package dev.piatnitsa.animallibrary.exception;
 
+/**
+ * This class presents exception codes by which messages will be taken from properties files.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 public class ExceptionMessageCode {
 
     public static final String USER_BAD_NAME = "user.badName";

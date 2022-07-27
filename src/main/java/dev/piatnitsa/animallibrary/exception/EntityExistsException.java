@@ -1,5 +1,10 @@
 package dev.piatnitsa.animallibrary.exception;
 
+/**
+ * This class represents the exception that is thrown when an entity already exists in the data source.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 public class EntityExistsException extends RuntimeException {
     private FieldError fieldError;
 

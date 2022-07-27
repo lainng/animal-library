@@ -1,5 +1,10 @@
 package dev.piatnitsa.animallibrary.exception;
 
+/**
+ * This class represents the exception that is thrown when entity does not found in the data source.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 public class NoSuchEntityException extends RuntimeException {
     private FieldError fieldError;
 

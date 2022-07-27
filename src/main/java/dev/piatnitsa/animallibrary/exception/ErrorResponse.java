@@ -1,5 +1,10 @@
 package dev.piatnitsa.animallibrary.exception;
 
+/**
+ * This class represents objects that will be returned as a response when an error is generated.
+ * @author Vlad Piatnitsa
+ * @version 1.0
+ */
 public class ErrorResponse {
     private String errorCode;
     private String errorMessage;
