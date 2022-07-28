@@ -24,6 +24,16 @@ public class Animal {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    public Animal() {
+    }
+
+    public Animal(long id, String nickname, LocalDate dateOfBirth, Gender gender) {
+        this.id = id;
+        this.nickname = nickname;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
