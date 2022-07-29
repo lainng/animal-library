@@ -35,8 +35,8 @@ public class AnimalServiceImpl
 
     @Override
     public Animal update(long id, Animal newDataEntity) {
-        Animal currentAnimal = getById(id);
         AnimalValidator.validateForUpdate(newDataEntity);
+        Animal currentAnimal = getById(id);
         if (newDataEntity.getNickname() != null) {
             Optional<Animal> optionalAnimal = repository.findByNickname(newDataEntity.getNickname());
             if (optionalAnimal.isPresent()) {
