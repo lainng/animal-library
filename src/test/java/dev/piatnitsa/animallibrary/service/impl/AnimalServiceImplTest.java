@@ -1,5 +1,6 @@
 package dev.piatnitsa.animallibrary.service.impl;
 
+import dev.piatnitsa.animallibrary.exception.EntityExistsException;
 import dev.piatnitsa.animallibrary.exception.IncorrectParameterException;
 import dev.piatnitsa.animallibrary.model.Animal;
 import dev.piatnitsa.animallibrary.model.Gender;
@@ -12,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,7 +27,9 @@ class AnimalServiceImplTest {
     private static final LocalDate CORRECT_DATE = LocalDate.now().minusDays(1);
 
     private static final Animal NEW_ANIMAL = new Animal(0, CORRECT_NICKNAME, CORRECT_DATE, Gender.MALE);
+    private static final Animal INCORRECT_DATA_FOR_UPDATE = new Animal(0, INCORRECT_NICKNAME, CORRECT_DATE, Gender.MALE);
     private static final Animal NEW_DATA_FOR_UPDATE = new Animal(0, NEW_NICKNAME, CORRECT_DATE, Gender.MALE);
+    private static final Animal UPDATED_ANIMAL = new Animal(CORRECT_ID, NEW_NICKNAME, CORRECT_DATE, Gender.MALE);
     private static final Animal CORRECT_ANIMAL = new Animal(CORRECT_ID, CORRECT_NICKNAME, CORRECT_DATE, Gender.MALE);
     private static final Animal INCORRECT_ANIMAL = new Animal(INCORRECT_ID, INCORRECT_NICKNAME, CORRECT_DATE, Gender.MALE);
 
@@ -35,8 +39,8 @@ class AnimalServiceImplTest {
     @Test
     void insertCorrectEntity_thenOk() {
         Mockito.when(animalRepository.save(NEW_ANIMAL)).thenReturn(CORRECT_ANIMAL);
-        Animal extended = animalService.insert(NEW_ANIMAL);
-        assertEquals(extended, CORRECT_ANIMAL);
+        Animal actual = animalService.insert(NEW_ANIMAL);
+        assertEquals(CORRECT_ANIMAL, actual);
     }
 
     @Test
@@ -46,11 +50,34 @@ class AnimalServiceImplTest {
 
     @Test
     void updateByCorrectData_thanOk() {
+        Mockito.when(animalRepository.findById(CORRECT_ID)).thenReturn(Optional.of(CORRECT_ANIMAL));
+        Mockito.when(animalRepository.findByNickname(NEW_NICKNAME)).thenReturn(Optional.empty());
+        Mockito.when(animalRepository.save(UPDATED_ANIMAL)).thenReturn(UPDATED_ANIMAL);
+        Animal actual = animalService.update(CORRECT_ID, NEW_DATA_FOR_UPDATE);
+        assertEquals(UPDATED_ANIMAL, actual);
+    }
 
+    @Test
+    void updateByIncorrectId_thanThrowEx() {
+        assertThrows(IncorrectParameterException.class, () -> animalService.update(INCORRECT_ID, NEW_DATA_FOR_UPDATE));
+    }
+
+    @Test
+    void updateByExistedNickname_thanThrowEx() {
+        Mockito.when(animalRepository.findById(CORRECT_ID)).thenReturn(Optional.of(CORRECT_ANIMAL));
+        Mockito.when(animalRepository.findByNickname(CORRECT_NICKNAME)).thenReturn(Optional.of(CORRECT_ANIMAL));
+        assertThrows(EntityExistsException.class, () -> animalService.update(CORRECT_ID, NEW_ANIMAL));
+    }
+
+    @Test
+    void updateByIncorrectData_thanThrowEx() {
+        assertThrows(IncorrectParameterException.class,
+                () -> animalService.update(CORRECT_ID, INCORRECT_DATA_FOR_UPDATE));
     }
 
     @Test
     void deleteByCorrectId_thanOk() {
+        Mockito.when(animalRepository.findById(CORRECT_ID)).thenReturn(Optional.of(CORRECT_ANIMAL));
         assertDoesNotThrow(() -> animalService.delete(CORRECT_ID));
     }
 
