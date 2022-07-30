@@ -55,7 +55,8 @@ public class UserValidator {
      * @param name name for validate.
      */
     public static void validateName(String name) {
-        if (name == null || name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH) {
+        FieldError error = validateUsername(name);
+        if (error != null) {
             throw new IncorrectParameterException(Collections.singletonList(
                     new FieldError(ExceptionMessageCode.USER_BAD_NAME, name))
             );
@@ -71,14 +72,14 @@ public class UserValidator {
 
     private static FieldError validateUsername(String name) {
         if (name == null || name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH) {
-            new FieldError(ExceptionMessageCode.USER_BAD_NAME, name);
+            return new FieldError(ExceptionMessageCode.USER_BAD_NAME, name);
         }
         return null;
     }
 
     private static FieldError validatePassword(String password) {
         if (password == null || password.length() < MIN_PASSWORD_LENGTH || password.length() > MAX_PASSWORD_LENGTH) {
-            new FieldError(ExceptionMessageCode.USER_BAD_PASSWORD);
+            return new FieldError(ExceptionMessageCode.USER_BAD_PASSWORD);
         }
         return null;
     }
