@@ -1,5 +1,6 @@
 package dev.piatnitsa.animallibrary.service.impl;
 
+import dev.piatnitsa.animallibrary.exception.IncorrectParameterException;
 import dev.piatnitsa.animallibrary.model.User;
 import dev.piatnitsa.animallibrary.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -39,6 +42,36 @@ class UserServiceImplTest {
     }
 
     @Test
-    void isNameAvailable() {
+    void insertIncorrectEntity_thanThrowEx() {
+        assertThrows(IncorrectParameterException.class, () -> userService.insert(INCORRECT_USER));
+    }
+
+    @Test
+    void insertNullEntity_thanThrowEx() {
+        assertThrows(IncorrectParameterException.class, () -> userService.insert(null));
+    }
+
+    @Test
+    void isNameAvailable_checkCorrectName_thanOk() {
+        Mockito.when(userRepository.findByName(CORRECT_USERNAME)).thenReturn(Optional.of(CORRECT_USER));
+        assertFalse(userService.isNameAvailable(CORRECT_USERNAME));
+
+    }
+
+    @Test
+    void isNameAvailable_checkIncorrectName_thanThrowEx() {
+        assertThrows(IncorrectParameterException.class,
+                () -> userService.isNameAvailable(INCORRECT_USERNAME));
+    }
+
+    @Test
+    void isNameAvailable_checkNonExistentName_thanOk() {
+        Mockito.when(userRepository.findByName(CORRECT_USERNAME)).thenReturn(Optional.empty());
+        assertTrue(userService.isNameAvailable(CORRECT_USERNAME));
+    }
+
+    @Test
+    void isNameAvailable_checkNullName_thanThrowEx() {
+        assertThrows(IncorrectParameterException.class, () -> userService.isNameAvailable(null));
     }
 }
