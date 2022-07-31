@@ -9,11 +9,11 @@ The result of the work should be a string, an expanded string and 3 digits (work
 #### Start *reverse-strings* app
 
 Go to the project folder and run in terminal:  
-> `java -jar reverse-strings-1.0.jar`
+<pre>java -jar reverse-strings-1.0.jar</pre>
 
 ##### Output:
 
-![](https://i.imgur.com/MvDZjnJ.png)
+![](https://i.imgur.com/naD1N2S.png)
 
 ---
 
