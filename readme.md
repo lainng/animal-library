@@ -6,10 +6,10 @@ Write a method that reverses a string and measure the running time of this metho
 It should be issued in the form of a stand-alone java application with a console string input.  
 The result of the work should be a string, an expanded string and 3 digits (working time).
 
-#### Start *reverse-string* app
+#### Start *reverse-strings* app
 
 Go to the project folder and run in terminal:  
-> `java ReverseString.java`
+> `java -jar reverse-strings-1.0.jar`
 
 ##### Output:
 
