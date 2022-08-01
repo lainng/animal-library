@@ -13,7 +13,7 @@ Go to the project folder and run in terminal:
 
 ##### Output:
 
-![](https://i.imgur.com/naD1N2S.png)
+<img src="https://i.imgur.com/naD1N2S.png" alt="Output" width="600px" height="200px"/>
 
 ---
 
