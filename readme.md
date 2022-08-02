@@ -9,11 +9,11 @@ The result of the work should be a string, an expanded string and 3 digits (work
 #### Start *reverse-strings* app
 
 Go to the project folder and run in terminal:  
-<pre>java -jar reverse-strings-1.0.jar</pre>
+<pre>$ java -jar reverse-strings-1.0.jar</pre>
 
 ##### Output:
 
-<img src="https://i.imgur.com/naD1N2S.png" alt="Output" width="600px" height="200px"/>
+<img src="https://i.imgur.com/naD1N2S.png" alt="Output" width="400" height="150"/>
 
 ---
 
@@ -37,5 +37,75 @@ All interaction must be done using JSON data format.
 All errors must have numbers and text decoding.
 Errors, in case of occurrence, should also be transmitted as a JSON object.  
 As a database, you can take PostgreSQL, Mongo or any InMemory database (but then the jar must be added to the archive).  
-
 It is recommended to use Spring and Hibernate (it is possible with JPA).
+
+#### Start *animal-library*
+
+1. Build an application image:
+<pre>$ docker build . -t animal_library</pre>
+
+2. After building an image run the container:
+<pre>$ docker run -d -p 8080:8080 animal_library</pre>
+
+#### Application work
+
+- Check username availability:
+<pre>
+$ curl -G -d 'name=LordVoldemort' 'localhost:8080/name-availability'
+<span style="color: gray">> true</span>
+</pre>
+
+- Log in:
+<pre>
+$ curl -X POST 'localhost:8080/login' -d 'username=ronweasley@gmail.com&password=RonWeasley'
+<span style="color: gray">{
+  "email":"ronweasley@gmail.com",
+  "token":"{token}"
+}</span>
+</pre>
+
+- Getting info about all animals:
+<pre>
+$ curl -H 'Authorization: Bearer {token}' 'localhost:8080/animal'
+<span style="color: gray">{
+  "id":1,
+  "nickname":"Lasley",
+  "dateOfBirth":"2022-07-07",
+  "gender":"MALE"
+},
+{
+  "id":2,
+  "nickname":"Jack",
+  "dateOfBirth":"2022-06-06",
+  "gender":"MALE"
+}
+...</span>
+</pre>
+
+- Getting info about an animal with `id` = 1:
+<pre>
+$ curl -H 'Authorization: Bearer {token}' 'localhost:8080/animal/1'
+<span style="color: gray">{
+  "id":1,
+  "nickname":"Lasley",
+  "dateOfBirth":"2022-07-07",
+  "gender":"MALE"
+}</span>
+</pre>
+
+- Update animal info with `id` = 1:
+<pre>
+$ curl -X PATCH -H 'Authorization: Bearer {token}' -d '{"nickname":"Peter"}' 'localhost:8080/animal/1'
+<span style="color: gray">{
+  "id":1,
+  "nickname":"Peter",
+  "dateOfBirth":"2022-07-07",
+  "gender":"MALE"
+}</span>
+</pre>
+
+- Delete an animal with `id` = 1:
+<pre>
+$ curl -X DELETE -H 'Authorization: Bearer {token}' 'localhost:8080/animal/1'
+<span style="color: gray">> HTTP Status 204 NO_CONTENT</span>
+</pre>
