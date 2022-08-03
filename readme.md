@@ -53,6 +53,7 @@ It is recommended to use Spring and Hibernate (it is possible with JPA).
 <pre>
 $ curl -X POST 'localhost:8080/login'
        -d 'username=ronweasley@gmail.com&password=RonWeasley'
+
 <span style="color: gray">{
   "email":"ronweasley@gmail.com",
   "token":"{token}"
@@ -64,6 +65,7 @@ $ curl -X POST 'localhost:8080/login'
 $ curl -X POST 'localhost:8080/register' 
        -H 'Content-Type: application/json' 
        -d '{"email": "harrypotter@icloud.com","password": "ChosenOne","name": "Harry Potter"}'
+
 <span style="color: gray">{
   "email": "harrypotter@icloud.com",
   "name": "Harry Potter"
@@ -74,12 +76,14 @@ $ curl -X POST 'localhost:8080/register'
 - Check username availability:
 <pre>
 $ curl -G -d 'name=LordVoldemort' 'localhost:8080/name-availability'
+
 <span style="color: gray">> true</span>
 </pre>
 
 - Getting info about all animals:
 <pre>
 $ curl -H 'Authorization: Bearer {token}' 'localhost:8080/animal'
+
 <span style="color: gray">{
   "id": 1,
   "nickname": "Lasley",
@@ -98,6 +102,7 @@ $ curl -H 'Authorization: Bearer {token}' 'localhost:8080/animal'
 - Getting info about an animal with `id` = 1:
 <pre>
 $ curl -H 'Authorization: Bearer {token}' 'localhost:8080/animal/1'
+
 <span style="color: gray">{
   "id": 1,
   "nickname": "Lasley",
@@ -111,6 +116,7 @@ $ curl -H 'Authorization: Bearer {token}' 'localhost:8080/animal/1'
 $ curl -X PATCH 
        -H 'Authorization: Bearer {token}' 
        -d '{"nickname":"Peter"}' 'localhost:8080/animal/1'
+
 <span style="color: gray">{
   "id": 1,
   "nickname": "Peter",
@@ -122,5 +128,6 @@ $ curl -X PATCH
 - Delete an animal with `id` = 1:
 <pre>
 $ curl -X DELETE -H 'Authorization: Bearer {token}' 'localhost:8080/animal/1'
+
 <span style="color: gray">> HTTP Status 204 NO_CONTENT</span>
 </pre>
