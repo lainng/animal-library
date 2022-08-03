@@ -11,7 +11,7 @@ The result of the work should be a string, an expanded string and 3 digits (work
 Go to the project folder and run in terminal:  
 <pre>$ java -jar reverse-strings-1.0.jar</pre>
 
-##### Output:
+##### Output
 
 <img src="https://i.imgur.com/naD1N2S.png" alt="Output" width="400" height="150"/>
 
@@ -49,35 +49,48 @@ It is recommended to use Spring and Hibernate (it is possible with JPA).
 
 #### Application work
 
-- Check username availability:
-<pre>
-$ curl -G -d 'name=LordVoldemort' 'localhost:8080/name-availability'
-<span style="color: gray">> true</span>
-</pre>
-
 - Log in:
 <pre>
-$ curl -X POST 'localhost:8080/login' -d 'username=ronweasley@gmail.com&password=RonWeasley'
+$ curl -X POST 'localhost:8080/login'
+       -d 'username=ronweasley@gmail.com&password=RonWeasley'
 <span style="color: gray">{
   "email":"ronweasley@gmail.com",
   "token":"{token}"
 }</span>
 </pre>
 
+- Sign up:
+<pre>
+$ curl -X POST 'localhost:8080/register' 
+       -H 'Content-Type: application/json' 
+       -d '{"email": "harrypotter@icloud.com","password": "ChosenOne","name": "Harry Potter"}'
+<span style="color: gray">{
+  "email": "harrypotter@icloud.com",
+  "name": "Harry Potter"
+  "token": "{token}"
+}</span>
+</pre>
+
+- Check username availability:
+<pre>
+$ curl -G -d 'name=LordVoldemort' 'localhost:8080/name-availability'
+<span style="color: gray">> true</span>
+</pre>
+
 - Getting info about all animals:
 <pre>
 $ curl -H 'Authorization: Bearer {token}' 'localhost:8080/animal'
 <span style="color: gray">{
-  "id":1,
-  "nickname":"Lasley",
-  "dateOfBirth":"2022-07-07",
-  "gender":"MALE"
+  "id": 1,
+  "nickname": "Lasley",
+  "dateOfBirth": "2022-07-07",
+  "gender": "MALE"
 },
 {
-  "id":2,
-  "nickname":"Jack",
-  "dateOfBirth":"2022-06-06",
-  "gender":"MALE"
+  "id": 2,
+  "nickname": "Jack",
+  "dateOfBirth": "2022-06-06",
+  "gender": "MALE"
 }
 ...</span>
 </pre>
@@ -86,21 +99,23 @@ $ curl -H 'Authorization: Bearer {token}' 'localhost:8080/animal'
 <pre>
 $ curl -H 'Authorization: Bearer {token}' 'localhost:8080/animal/1'
 <span style="color: gray">{
-  "id":1,
-  "nickname":"Lasley",
-  "dateOfBirth":"2022-07-07",
-  "gender":"MALE"
+  "id": 1,
+  "nickname": "Lasley",
+  "dateOfBirth": "2022-07-07",
+  "gender": "MALE"
 }</span>
 </pre>
 
 - Update animal info with `id` = 1:
 <pre>
-$ curl -X PATCH -H 'Authorization: Bearer {token}' -d '{"nickname":"Peter"}' 'localhost:8080/animal/1'
+$ curl -X PATCH 
+       -H 'Authorization: Bearer {token}' 
+       -d '{"nickname":"Peter"}' 'localhost:8080/animal/1'
 <span style="color: gray">{
-  "id":1,
-  "nickname":"Peter",
-  "dateOfBirth":"2022-07-07",
-  "gender":"MALE"
+  "id": 1,
+  "nickname": "Peter",
+  "dateOfBirth": "2022-07-07",
+  "gender": "MALE"
 }</span>
 </pre>
 
